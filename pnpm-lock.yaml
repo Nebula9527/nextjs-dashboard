@@ -52,9 +52,6 @@ dependencies:
     version: 3.24.2
 
 devDependencies:
-  '@types/bcrypt':
-    specifier: ^5.0.2
-    version: 5.0.2
   '@types/node':
     specifier: 22.10.7
     version: 22.10.7
@@ -475,12 +472,6 @@ packages:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.4.17
     dev: false
-
-  /@types/bcrypt@5.0.2:
-    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
-    dependencies:
-      '@types/node': 22.10.7
-    dev: true
 
   /@types/cookie@0.6.0:
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
