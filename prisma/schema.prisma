@@ -1,0 +1,43 @@
+// 生成器配置
+generator client {
+  provider = "prisma-client-js" // Prisma 客户端 JS 提供程序
+}
+
+// 数据源配置
+datasource db {
+  provider = "sqlite"    // 使用 SQLite 数据库
+  url      = env("DATABASE_URL") // 数据库连接 URL，从环境变量获取
+}
+
+// 用户模型
+model User {
+  id       String @id @default(uuid()) // 用户ID，主键，默认使用 UUID
+  name     String                      // 用户名称
+  email    String @unique              // 用户邮箱，唯一值
+  password String                      // 用户密码
+}
+
+// 客户模型
+model Customer {
+  id        String    @id @default(uuid()) // 客户ID，主键，默认使用 UUID
+  name      String                         // 客户名称
+  email     String                         // 客户邮箱
+  imageUrl  String    @map("image_url")    // 客户头像URL，映射到数据库字段 image_url
+  invoices  Invoice[]                      // 与发票的一对多关系
+}
+
+// 发票模型
+model Invoice {
+  id         String   @id @default(uuid())                    // 发票ID，主键，默认使用 UUID
+  customerId String   @map("customer_id")                     // 客户ID，外键，映射到数据库字段 customer_id
+  amount     Int                                              // 发票金额
+  status     String                                           // 发票状态
+  date       DateTime                                         // 发票日期
+  customer   Customer @relation(fields: [customerId], references: [id]) // 与客户的关系，通过 customerId 关联到 Customer 表的 id
+}
+
+// 收入模型
+model Revenue {
+  month   String @unique // 月份，唯一值
+  revenue Int            // 收入金额
+} 
