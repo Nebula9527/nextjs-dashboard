@@ -1,5 +1,5 @@
 "use client";
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useState, useEffect } from "react";
 import {
   Sun,
   Moon,
@@ -18,6 +18,13 @@ import { loginAction } from "@/app/lib/actions/auth";
 function LoginForm() {
   const [state, formAction, isPending] = useActionState(loginAction, null);
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (state?.redirect) {
+      // 在客户端处理重定向
+      window.location.href = "/";
+    }
+  }, [state]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);

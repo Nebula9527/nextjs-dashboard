@@ -1,27 +1,43 @@
+// prisma/seed.ts
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = await bcrypt.hash("123456", 10);
-
-  // 清理现有数据
+  // 清空现有数据（可选）
   await prisma.user.deleteMany();
 
-  // 创建用户
-  await prisma.user.create({
-    data: {
-      name: "User",
-      email: "user@nextmail.com",
-      password,
-    },
+  // 插入初始数据
+  await prisma.user.createMany({
+    data: [
+      {
+        email: "735039922@qq.com",
+        name: "陆烟儿",
+        phone: "13628108279",
+        password: await hash("L3244886", 12),
+      },
+      {
+        email: "154093428@qq.com",
+        name: "Alice",
+        phone: "13800000000",
+        password: await hash("L3244886", 12),
+      },
+      {
+        email: "user2@example.com",
+        name: "Bob",
+        phone: "13800000001",
+        password: await hash("L3244886", 12),
+      },
+    ],
   });
+
+  console.log("Seed data created successfully");
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error("Error seeding data:", e);
     process.exit(1);
   })
   .finally(async () => {
